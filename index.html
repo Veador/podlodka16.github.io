@@ -401,13 +401,13 @@ section[data-notes-id="slide-20"] h1 { position:relative; padding-left:2ch; }
 section[data-notes-id="slide-20"] h1::before { position:absolute; left:0; top:0; }
 section[data-notes-id="slide-20"] h1 + p { padding-left:96px; }
 
-/* Slide 13 (stable ID slide-12): reveal content in sequence without clicks. */
-section[data-notes-id="slide-12"].on .fill:not(.wait) .slow {
-  animation:slide13-reveal .4s ease var(--d,0s) both;
+/* Slide 7 (stable ID slide-06): reveal content in sequence without clicks. */
+section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
+  animation:slide7-reveal .4s ease var(--d,0s) both;
 }
-@keyframes slide13-reveal { from { opacity:0; } to { opacity:1; } }
+@keyframes slide7-reveal { from { opacity:0; } to { opacity:1; } }
 @media (prefers-reduced-motion: reduce) {
-  section[data-notes-id="slide-12"].on .fill:not(.wait) .slow { animation:none; }
+  section[data-notes-id="slide-06"].on .fill:not(.wait) .slow { animation:none; }
 }
 </style>
 <style id="public-hide">#bar,#notes{display:none !important}</style>
@@ -557,12 +557,12 @@ section[data-notes-id="slide-12"].on .fill:not(.wait) .slow {
   <h2>Сначала проверяем, состоялся ли тест</h2>
   <div class="fill">
   <div class="rules">
-    <div class="rule build" data-b="1"><i>1</i><span>Если история действий неполная</span><em>→</em><u class="inv">запуск невалиден</u></div>
-    <div class="rule build" data-b="2"><i>2</i><span>Если клиент не отказывался</span><em>→</em><u class="inv">запуск невалиден</u></div>
-    <div class="rule build" data-b="3"><i>3</i><span>Если был запрос на отмену</span><em>→</em><u class="viol">нарушение</u></div>
-    <div class="rule build" data-b="4"><i>4</i><span>Если отказ был, а отмены нет</span><em>→</em><u class="conf">подтверждено</u></div>
+    <div class="rule slow" style="--d:0.0s"><i>1</i><span>Если история действий неполная</span><em>→</em><u class="inv">запуск невалиден</u></div>
+    <div class="rule slow" style="--d:0.3s"><i>2</i><span>Если клиент не отказывался</span><em>→</em><u class="inv">запуск невалиден</u></div>
+    <div class="rule slow" style="--d:0.6s"><i>3</i><span>Если был запрос на отмену</span><em>→</em><u class="viol">нарушение</u></div>
+    <div class="rule slow" style="--d:0.9s"><i>4</i><span>Если отказ был, а отмены нет</span><em>→</em><u class="conf">подтверждено</u></div>
   </div>
-  <div class="callout build" data-b="4" style="--d:.35s">Обычно начинаем с позитивного сценария. Здесь он проверяется <b>последним</b>: сначала убеждаемся, что условия теста созданы</div>
+  <div class="callout slow" style="--d:1.2s">При тестировании AI необходимо всегда убеждаться в том, что тест был проведен корректно</div>
   </div>
 <div class="quote">"Are you sure this line is clean?" — Trinity</div>
 </section>
@@ -666,17 +666,17 @@ section[data-notes-id="slide-12"].on .fill:not(.wait) .slow {
 <section data-notes-id="slide-12">
   <h2>Каждое решение — в харнесс</h2>
   <div class="fill" style="gap:30px">
-    <div class="node err slow" style="--d:0s"><b>AI спешит дать ответ</b>Если ему кажется, что контекста хватает, — дальше он не ищет</div>
+    <div class="node err"><b>AI спешит дать ответ</b>Если ему кажется, что контекста хватает, — дальше он не ищет</div>
     <div class="flow">
-      <div class="node err slow" style="flex:1;--d:0.3s"><b>Проблема</b><small>Нашёл в работе с AI</small></div>
-      <div class="arr slow" style="--d:0.6s">→</div>
-      <div class="node slow" style="flex:1;--d:0.6s"><b>Решение</b><small>Принцип, правило и т.д.</small></div>
-      <div class="arr slow" style="--d:0.9s">→</div>
-      <div class="node mine slow" style="flex:1;--d:0.9s"><b>Харнесс</b><small>Личный набор правил и решений</small></div>
-      <div class="arr slow" style="--d:1.2s">→</div>
-      <div class="node ok slow" style="flex:1;--d:1.2s"><b>Запрос агенту</b><small>Харнесс попадает в контекст агента</small></div>
+      <div class="node err build slow" data-b="1" style="flex:1;--d:0s"><b>Проблема</b><small>Нашёл в работе с AI</small></div>
+      <div class="arr build slow" data-b="1" style="--d:.3s">→</div>
+      <div class="node build slow" data-b="1" style="flex:1;--d:.3s"><b>Решение</b><small>Принцип, правило и т.д.</small></div>
+      <div class="arr build slow" data-b="1" style="--d:.6s">→</div>
+      <div class="node mine build slow" data-b="1" style="flex:1;--d:.6s"><b>Харнесс</b><small>Личный набор правил и решений</small></div>
+      <div class="arr build slow" data-b="1" style="--d:.9s">→</div>
+      <div class="node ok build slow" data-b="1" style="flex:1;--d:.9s"><b>Запрос агенту</b><small>Харнесс попадает в контекст агента</small></div>
     </div>
-    <div class="callout slow" style="font-size:34px;--d:1.5s">При тестировании AI необходимо всегда убеждаться в том, что тест был проведен корректно</div>
+    <div class="callout build slow" data-b="1" style="font-size:34px;--d:1.2s">Весь нужный контекст должен попадать в каждый запрос</div>
   </div>
 <div class="quote">"I can guide you, but you must do exactly as I say." — Morpheus</div>
 </section>
