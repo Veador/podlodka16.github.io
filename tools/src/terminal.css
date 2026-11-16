@@ -97,3 +97,12 @@ use[href="#neo"] { color:var(--muted); }
 section[data-notes-id="slide-20"] h1 { position:relative; padding-left:2ch; }
 section[data-notes-id="slide-20"] h1::before { position:absolute; left:0; top:0; }
 section[data-notes-id="slide-20"] h1 + p { padding-left:96px; }
+
+/* Slide 13 (stable ID slide-12): reveal content in sequence without clicks. */
+section[data-notes-id="slide-12"].on .fill:not(.wait) .slow {
+  animation:slide13-reveal .4s ease var(--d,0s) both;
+}
+@keyframes slide13-reveal { from { opacity:0; } to { opacity:1; } }
+@media (prefers-reduced-motion: reduce) {
+  section[data-notes-id="slide-12"].on .fill:not(.wait) .slow { animation:none; }
+}
