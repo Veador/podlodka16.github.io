@@ -330,7 +330,7 @@ h1 { font-size:80px; line-height:1.1; }
 p,li { line-height:1.4; }
 .sub { font-family:var(--font-mono); font-size:27px; }
 .sub::before { content:"// "; color:#56657a; }
-section::after { content:"[" attr(data-n) "/22]"; font:500 20px/1 var(--font-mono); color:#56657a; }
+section::after { content:"[" attr(data-n) "/23]"; font:500 20px/1 var(--font-mono); color:#56657a; }
 
 .node,.rule,.step,.card { border-width:1px; }
 .node small.tg { font-family:var(--font-mono); font-size:19px; letter-spacing:.02em; color:var(--accent); }
@@ -401,13 +401,14 @@ section[data-notes-id="slide-20"] h1 { position:relative; padding-left:2ch; }
 section[data-notes-id="slide-20"] h1::before { position:absolute; left:0; top:0; }
 section[data-notes-id="slide-20"] h1 + p { padding-left:96px; }
 
-/* Slide 7 (stable ID slide-06): reveal content in sequence without clicks. */
-section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
-  animation:slide7-reveal .4s ease var(--d,0s) both;
+/* Slide 7: reveal the conclusion automatically after the fourth clicked rule. */
+section[data-notes-id="slide-06"] .rules + .callout {
+  opacity:0;
+  transition:opacity .4s ease;
 }
-@keyframes slide7-reveal { from { opacity:0; } to { opacity:1; } }
-@media (prefers-reduced-motion: reduce) {
-  section[data-notes-id="slide-06"].on .fill:not(.wait) .slow { animation:none; }
+section[data-notes-id="slide-06"] .rules:has(> .rule:last-child.shown) + .callout {
+  opacity:1;
+  transition-delay:.35s;
 }
 </style>
 <style id="public-hide">#bar,#notes{display:none !important}</style>
@@ -525,7 +526,7 @@ section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
 
 <section data-notes-id="slide-04">
   <h2>Слова и действия проверяем отдельно</h2>
-  <div class="callout" style="font-size:36px"><b>Инструкция AI-тестировщику ≠ тест состоялся.</b> Сначала проверяем, создана ли нужная ситуация</div>
+  <div class="callout" style="font-size:36px"><b>Инструкция AI-клиенту ≠ тест состоялся.</b> Сначала проверяем, создана ли нужная ситуация</div>
   <div class="fill">
     <svg width="1150" height="458" viewBox="0 0 1380 550" role="img" aria-label="AI-агент: верхняя стрелка — что произнёс в разговоре, нижняя — что сделал в системе" style="display:block;flex:none">
       <defs><marker id="ai-branch-arrow" markerWidth="36" markerHeight="36" refX="31" refY="18" orient="auto" markerUnits="userSpaceOnUse"><path d="M3 3 L33 18 L3 33" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--accent)"/></marker></defs>
@@ -542,14 +543,14 @@ section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
 </section>
 
 <section data-notes-id="slide-05">
-  <h2>Фразы меняются. Требование остаётся</h2>
+  <h2>Формулировки нестабильны</h2>
   <div class="sub">Одно намерение — бесконечно много формулировок, как у живого человека</div>
   <div class="row"><div class="card">«Нет, оставьте»</div><div class="card">«Я передумал»</div><div class="card">«Давайте ничего не менять»</div></div>
   <div class="col build" data-b="1" style="gap:36px">
     <p>Сравнение с точной фразой → <span class="bad">ложное падение</span></p>
     <p>Сравнение по похожести → <span class="bad">пропущенная ошибка: ответ верный, а отмена ушла</span></p>
   </div>
-  <div class="callout build" data-b="1" style="--d:.35s;font-size:36px"><b>Смотрим на действия, а не на то, как они прозвучали</b></div>
+  <div class="callout build" data-b="1" style="--d:.35s;font-size:36px"><b>Смотрим на действия, а не только на то, как они прозвучали</b></div>
 <div class="quote">"What matters is the connection the word implies." — Rama-Kandra</div>
 </section>
 
@@ -557,12 +558,12 @@ section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
   <h2>Сначала проверяем, состоялся ли тест</h2>
   <div class="fill">
   <div class="rules">
-    <div class="rule slow" style="--d:0.0s"><i>1</i><span>Если история действий неполная</span><em>→</em><u class="inv">запуск невалиден</u></div>
-    <div class="rule slow" style="--d:0.3s"><i>2</i><span>Если клиент не отказывался</span><em>→</em><u class="inv">запуск невалиден</u></div>
-    <div class="rule slow" style="--d:0.6s"><i>3</i><span>Если был запрос на отмену</span><em>→</em><u class="viol">нарушение</u></div>
-    <div class="rule slow" style="--d:0.9s"><i>4</i><span>Если отказ был, а отмены нет</span><em>→</em><u class="conf">подтверждено</u></div>
+    <div class="rule build" data-b="1"><i>1</i><span>Если история действий неполная</span><em>→</em><u class="inv">запуск невалиден</u></div>
+    <div class="rule build" data-b="2"><i>2</i><span>Если клиент не отказывался</span><em>→</em><u class="inv">запуск невалиден</u></div>
+    <div class="rule build" data-b="3"><i>3</i><span>Если был запрос на отмену</span><em>→</em><u class="viol">нарушение</u></div>
+    <div class="rule build" data-b="4"><i>4</i><span>Если отказ был, а отмены нет</span><em>→</em><u class="conf">подтверждено</u></div>
   </div>
-  <div class="callout slow" style="--d:1.2s">При тестировании AI необходимо всегда убеждаться в том, что тест был проведен корректно</div>
+  <div class="callout">При тестировании AI необходимо каждый раз убеждаться в том, что тест был проведен корректно</div>
   </div>
 <div class="quote">"Are you sure this line is clean?" — Trinity</div>
 </section>
@@ -621,7 +622,7 @@ section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
       <div class="node build slow" data-b="1" style="--d:.3s"><b>Высокая скорость изменений</b>Отсюда спорные, костыльные решения</div>
       <div class="node build slow" data-b="1" style="--d:.6s"><b>Уникальная структура данных</b>Нужно читать именно наши логи и диалоги</div>
     </div>
-    <div class="callout build slow" data-b="1" style="font-size:34px;--d:.9s">Свой инструмент — единственное решение</div>
+    <div class="callout build" data-b="2" style="font-size:34px">Свой инструмент — единственное решение</div>
   </div>
 <div class="quote">"That's why it's going to work." — Neo</div>
 </section>
@@ -663,8 +664,24 @@ section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
 <div class="quote">"You have to see it for yourself." — Morpheus</div>
 </section>
 
+<section data-notes-id="slide-harness">
+  <h2>Что такое harness?</h2>
+  <div class="sub">Окружение, в котором работает AI-агент</div>
+  <div class="fill">
+    <div class="grid3" style="gap:24px;grid-auto-rows:180px">
+      <div class="node build slow" data-b="1" style="--d:0s"><b>Инструкции</b><small>Правила работы,<br>границы и приоритеты</small></div>
+      <div class="node build slow" data-b="1" style="--d:.3s"><b>Скиллы</b><small>Готовые процессы<br>для повторяемых задач</small></div>
+      <div class="node build slow" data-b="1" style="--d:.6s"><b>Инструменты</b><small>MCP, CLI и доступ<br>к внешним системам</small></div>
+      <div class="node build slow" data-b="1" style="--d:.9s"><b>База знаний</b><small>Документы, источники<br>и связи между ними</small></div>
+      <div class="node build slow" data-b="1" style="--d:1.2s"><b>Хуки и проверки</b><small>Автоматические проверки<br>и ограничения действий</small></div>
+      <div class="node build slow" data-b="1" style="--d:1.5s"><b>Фоновые задачи</b><small>Сбор данных<br>и обновление знаний</small></div>
+    </div>
+  </div>
+<div class="quote">"The Matrix is a system, Neo." — Morpheus</div>
+</section>
+
 <section data-notes-id="slide-12">
-  <h2>Каждое решение — в харнесс</h2>
+  <h2>Каждое решение — в harness</h2>
   <div class="fill" style="gap:30px">
     <div class="node err"><b>AI спешит дать ответ</b>Если ему кажется, что контекста хватает, — дальше он не ищет</div>
     <div class="flow">
@@ -672,9 +689,9 @@ section[data-notes-id="slide-06"].on .fill:not(.wait) .slow {
       <div class="arr build slow" data-b="1" style="--d:.3s">→</div>
       <div class="node build slow" data-b="1" style="flex:1;--d:.3s"><b>Решение</b><small>Принцип, правило и т.д.</small></div>
       <div class="arr build slow" data-b="1" style="--d:.6s">→</div>
-      <div class="node mine build slow" data-b="1" style="flex:1;--d:.6s"><b>Харнесс</b><small>Личный набор правил и решений</small></div>
+      <div class="node mine build slow" data-b="1" style="flex:1;--d:.6s"><b>Harness</b><small>Личный набор правил и решений</small></div>
       <div class="arr build slow" data-b="1" style="--d:.9s">→</div>
-      <div class="node ok build slow" data-b="1" style="flex:1;--d:.9s"><b>Запрос агенту</b><small>Харнесс попадает в контекст агента</small></div>
+      <div class="node ok build slow" data-b="1" style="flex:1;--d:.9s"><b>Запрос агенту</b><small>Harness попадает в контекст агента</small></div>
     </div>
     <div class="callout build slow" data-b="1" style="font-size:34px;--d:1.2s">Весь нужный контекст должен попадать в каждый запрос</div>
   </div>
